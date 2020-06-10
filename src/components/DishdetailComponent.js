@@ -33,32 +33,38 @@ class DishDetail extends Component{
     }
 
     renderComments(selectDish){
-        // {console.log(selectComments)}
-        // selectComments.comments.map((comment)=>{
-        //     console.log(comment);
-        // })
-        const comment = selectDish.comments.map((comment)=>{
-            <li>comment.comment</li>
-            });
+        
+        if(selectDish !=null){
+        const com = selectDish.comments;
+         {console.log(selectDish.comments)}
+         const style = {border:'none'};
 
-        if(selectDish != null){
-            if(selectDish.comments !=null){
-            return(
-                comment
-            );
 
+         return(
+            <div>
+            <h4>Comments</h4>
+            <ListGroup className="list-unstyled" >{com.map((comment)=>{
+                 return(
+                    <div>
+                         <ListGroupItem style={style}>{comment.comment}</ListGroupItem>
+                         <ListGroupItem style={style}>-- {comment.author} , {Date(comment.date)}</ListGroupItem>
+                         </div>
+                         
+                )     
+
+
+             })}</ListGroup>
+             </div>
+         );
         }
         else{
             return(
                 <div></div>
             );
         }
-    }
-
-
-
-
-
+        // selectComments.comments.map((comment)=>{
+        //     console.log(comment);
+        // })
         // if(selectComments.comments!=null){
         //     console.log(selectComments.comments);
         // }
@@ -97,6 +103,9 @@ class DishDetail extends Component{
     }
 
     render(){
+
+        
+
         
         return(
             <div className="row">
@@ -104,7 +113,7 @@ class DishDetail extends Component{
                 { this.renderDish(this.props.selectDish) }
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                <h4>Comments</h4>
+                
                 
                 {  this.renderComments(this.props.selectDish) }
                
