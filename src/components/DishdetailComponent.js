@@ -1,15 +1,15 @@
 import React,{ Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, ListGroupItem } from 'reactstrap';
 import ListGroup from 'reactstrap/lib/ListGroup';
-import { tagPropType } from 'reactstrap/lib/utils';
 
-class DishDetail extends Component{
-    constructor(props){
-        super(props);
+//class DishDetail extends Component{
+    // constructor(props){
+    //     super(props);
+    //     //console.log(this.props.dish)
         
-    }
+    // }
 
-    renderDish(selectDish){
+   function  RenderDish({selectDish}){
         // {console.log(selectDish.comments)}
         if(selectDish != null){
             return(
@@ -32,7 +32,7 @@ class DishDetail extends Component{
         }
     }
 
-    renderComments(selectDish){
+    function RenderComments({selectDish}){
         
         if(selectDish !=null){
         const com = selectDish.comments;
@@ -47,7 +47,7 @@ class DishDetail extends Component{
                  return(
                     <div>
                          <ListGroupItem style={style}>{comment.comment}</ListGroupItem>
-                         <ListGroupItem style={style}>-- {comment.author} , {Date(comment.date)}</ListGroupItem>
+                         <ListGroupItem style={style}>-- {comment.author} , {new Intl.DateTimeFormat('en-us',{year:'numeric',month:'short',day:'2-digit'}).format(new Date(Date.parse(comment.date)))}</ListGroupItem>
                          </div>
                          
                 )     
@@ -102,27 +102,33 @@ class DishDetail extends Component{
 
     }
 
-    render(){
+//    render(){
 
         
-
-        
-        return(
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                { this.renderDish(this.props.selectDish) }
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                
-                
-                {  this.renderComments(this.props.selectDish) }
-               
-                </div>
-
+const DishDetail=(props)=>{
+            
+    return(
+        <div className="container">
+        <div className="row">
+            <div className="col-12 col-md-5 m-1">
+            {/* { this.renderDish(this.props.selectDish) } */}
+            <RenderDish selectDish={props.selectDish}/>
             </div>
-        );
-    }
+            <div className="col-12 col-md-5 m-1">
+            
+            
+            {/* {  this.renderComments(this.props.selectDish) } */}
+           <RenderComments selectDish={props.selectDish}/>
+            </div>
+
+        </div>
+        </div>
+    );
+
 
 }
+//    }
+
+//}
 
 export default DishDetail;
