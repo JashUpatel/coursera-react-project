@@ -3,6 +3,7 @@ import {Row, Col, Form, FormGroup, Label, Input, FormFeedback, Modal, ModalBody,
 import ListGroup from 'reactstrap/lib/ListGroup';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { addComment } from '../redux/ActionCreators';
 
 //class DishDetail extends Component{
     // constructor(props){
@@ -33,8 +34,11 @@ class CommentForm extends Component{
     }
 
     handleSubmit(values){
-        console.log(JSON.stringify(values));
-        alert(JSON.stringify(values));
+        // console.log(JSON.stringify(values));
+        // alert(JSON.stringify(values));
+
+        this.toggleCommentModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
 
     }
 
@@ -115,7 +119,7 @@ class CommentForm extends Component{
         }
     }
 
-    function RenderComments({selectComments}){
+    function RenderComments({selectComments, addComment, dishId}){
         
         if(selectComments !=null){
         //const com = selectDish.comments;
@@ -137,6 +141,7 @@ class CommentForm extends Component{
 
 
              })}</ListGroup>
+            <CommentForm dishId={dishId} addComment={addComment} />
              </div>
          );
         }
@@ -211,8 +216,8 @@ const DishDetail=(props)=>{
             
             
             {/* {  this.renderComments(this.props.selectDish) } */}
-           <RenderComments selectComments={props.comments}/>
-           <CommentForm/>
+           <RenderComments selectComments={props.comments} addComment={props.addComment} dishId ={props.selectDish.id}/>
+           
             </div>
 
         </div>
