@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbIte
 import CardImgOverlay from "reactstrap/lib/CardImgOverlay";
 import { Link } from 'react-router-dom';
 //import DishDetail from "./DishdetailComponent";
+import { Loading } from './LoadingComponent';
 
 
 function RenderMenuItem({dish,onClick}){
@@ -62,7 +63,7 @@ function RenderMenuItem({dish,onClick}){
     // }
 
     const Menu =(props)=>{
-        const menu = props.dishes.map((dish)=>{
+        const menu = props.dishes.dishes.map((dish)=>{
             return(
                 <div key={dish.id} className="col-12 col-md-5 m-1" >
                 {/* <Media tag='li'>
@@ -84,6 +85,25 @@ function RenderMenuItem({dish,onClick}){
             );
         });
 
+        if(props.dishes.isLoading){
+        return(
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if(props.dishes.errMess){
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.dishes.errMess}</h4>
+                </div>
+            </div>
+        );   
+    }
+    else
 
         return(
             <div className="container">
@@ -113,9 +133,10 @@ function RenderMenuItem({dish,onClick}){
 
             </div>
         );
+    }
     
 
-    }
+    
 
     
     

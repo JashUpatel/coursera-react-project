@@ -4,6 +4,7 @@ import ListGroup from 'reactstrap/lib/ListGroup';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { addComment } from '../redux/ActionCreators';
+import { Loading } from './LoadingComponent';
 
 //class DishDetail extends Component{
     // constructor(props){
@@ -194,39 +195,59 @@ class CommentForm extends Component{
 
         
 const DishDetail=(props)=>{
-            
-    return(
-        <div className="container">
-        <div className="row">
-        <Breadcrumb>
-            <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-            <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-            <BreadcrumbItem active>item{props.selectDish.name}</BreadcrumbItem>
-        </Breadcrumb>
-
-        </div>
-        
-        <div className="row">
-        
-            <div className="col-12 col-md-5 m-1">
-            {/* { this.renderDish(this.props.selectDish) } */}
-            <RenderDish selectDish={props.selectDish}/>
+    if(props.isLoading){
+        return(
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
             </div>
-            <div className="col-12 col-md-5 m-1">
-            
-            
-            {/* {  this.renderComments(this.props.selectDish) } */}
-           <RenderComments selectComments={props.comments} addComment={props.addComment} dishId ={props.selectDish.id}/>
-           
+        );
+    }
+    else if(props.errMess){
+        return(
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
             </div>
+        );   
+    }
 
-        </div>
-        </div>
-    );
+    else if(props.selectDish != null)
+            {
+                return(
+                    <div className="container">
+                    <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>item{props.selectDish.name}</BreadcrumbItem>
+                    </Breadcrumb>
 
+                    </div>
+                    
+                    <div className="row">
+                    
+                        <div className="col-12 col-md-5 m-1">
+                        {/* { this.renderDish(this.props.selectDish) } */}
+                        <RenderDish selectDish={props.selectDish}/>
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                        
+                        
+                        {/* {  this.renderComments(this.props.selectDish) } */}
+                    <RenderComments selectComments={props.comments} addComment={props.addComment} dishId ={props.selectDish.id}/>
+                    
+                        </div>
 
-}
-//    }
+                    </div>
+                    </div>
+                );
+
+    }
+
+   }
 
 //}
 
