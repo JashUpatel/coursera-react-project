@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Breadcrumb, BreadcrumbItem, FormGroup, Label, Input,Row, Col, Button, FormFeedback } from 'reactstrap';
 import { Control, Form, LocalForm, Errors, actions } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 //function Contact(props){
  
@@ -57,10 +58,11 @@ class Contact extends Component{
 
 
     handleSubmit(values){
-        console.log(JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+       // console.log(JSON.stringify(values));
+        //alert('Current State is: ' + JSON.stringify(values));
         //event.preventDefault();
         this.props.resetFeedbackForm();
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
     }
 
 
